@@ -17,7 +17,7 @@ CREATE TABLE `article` (
     reg_date DATETIME NOT NULL,
     update_date DATETIME NOT NULL,
     title VARCHAR(150) NOT NULL,
-    `body` TEXT NOT NULL
+    `body` TEXT NOT NULL,
     `user_id` BIGINT UNSIGNED NOT NULL  #현재 회원에 대한 구분 번호
 );
 
