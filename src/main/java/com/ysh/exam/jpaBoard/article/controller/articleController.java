@@ -1,7 +1,7 @@
-package com.ysh.exam.jpaBoard.user.controller;
+package com.ysh.exam.jpaBoard.article.controller;
 
-import com.ysh.exam.jpaBoard.user.dao.articleRepository;
-import com.ysh.exam.jpaBoard.user.domain.article;
+import com.ysh.exam.jpaBoard.article.dao.ArticleRepository;
+import com.ysh.exam.jpaBoard.article.domain.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +14,13 @@ import java.util.List;
 public class articleController {
 
     @Autowired
-    private articleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     @ResponseBody
-    public List<article> articles(){
+    public List<Article> showList() {
         return articleRepository.findAll();
+
     }
 
 }

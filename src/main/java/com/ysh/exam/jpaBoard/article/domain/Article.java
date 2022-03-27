@@ -1,4 +1,4 @@
-package com.ysh.exam.jpaBoard.user.domain;
+package com.ysh.exam.jpaBoard.article.domain;
 
 import lombok.Getter;
 
@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class article {
+public class Article {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //필수 mysql에 artiicle table과 똑같이 해야 한다
 
     private long id;
     private LocalDateTime reg_date ;
