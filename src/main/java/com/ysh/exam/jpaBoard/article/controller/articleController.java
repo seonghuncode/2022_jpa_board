@@ -38,8 +38,9 @@ public class articleController {
 
     @RequestMapping("delete")
     @ResponseBody
-    public void delete(Article article){
-        articleRepository.delete(article);
+    public String showDelete(long id) {
+        articleRepository.deleteById(id);
+        return "%d번 게시물이 삭제 되었습니다".formatted(id);
     }
 
 

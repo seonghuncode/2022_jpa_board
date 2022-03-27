@@ -13,6 +13,7 @@ spring:
 
 
 #실행이 될때 sql문에서 쿼리가 어떻게 실행 되는지 터미널에 보녀주는 코드이다.(실제 실행되는 쿼리문을 보여준다.)
+  #run에 들어가면 볼 수 있다.
   jpa:
     properties:
       hibernate:
@@ -21,11 +22,10 @@ spring:
         use_sql_comments: true
 
   #위의 코드를 실행행했을땜는 id는 ?로 나오게 되는데 그 값을 보여주는 코드이다.
-
-  logging:
-    level:
-      org:
-        hibernate:
-          type:
-            descriptor:
-              sql: trace
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
