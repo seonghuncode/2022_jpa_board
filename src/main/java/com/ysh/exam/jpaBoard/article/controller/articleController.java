@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,10 @@ public class articleController {
         if(body != null){
             article.setBody(body);
         }
+
+        article.setUpdate_date(LocalDateTime.now());
+
+
         articleRepository.save(article);
         return article;
     }
