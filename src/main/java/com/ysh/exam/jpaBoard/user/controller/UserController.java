@@ -38,8 +38,13 @@ public class UserController {
             return "password를 입력해 주세요";
         }
 
+        boolean existsByEmail = userRepository.existsByEmail(email);
 
-        else {
+        if(existsByEmail){
+            return "이미 사영중인 email이라 %s는 사용 불가능 합니다.".formatted(email);
+        }
+
+
             password = password.trim();
 
             User user = new User();
@@ -56,7 +61,7 @@ public class UserController {
         }
 
 
-    }
+
 
 
 }
