@@ -63,7 +63,7 @@ public class articleController {
             article.setBody(body);
         }
 
-        article.setUpdate_date(LocalDateTime.now());
+        article.setUpdateDate(LocalDateTime.now());
 
 
         articleRepository.save(article);
@@ -90,8 +90,8 @@ public class articleController {
 
         article.setTitle(title);
         article.setBody(body);
-        article.setUpdate_date(LocalDateTime.now());
-        article.setReg_date(LocalDateTime.now());
+        article.setUpdateDate(LocalDateTime.now());
+        article.setRegDate(LocalDateTime.now());
 
         articleRepository.save(article);
 
