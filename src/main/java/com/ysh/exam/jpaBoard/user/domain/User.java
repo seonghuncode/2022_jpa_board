@@ -1,5 +1,6 @@
 package com.ysh.exam.jpaBoard.user.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +23,8 @@ public class User {
     private LocalDateTime updateDate;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String password;
 
 
