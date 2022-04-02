@@ -2,6 +2,8 @@ package com.ysh.exam.jpaBoard.article.controller;
 
 import com.ysh.exam.jpaBoard.article.dao.ArticleRepository;
 import com.ysh.exam.jpaBoard.article.domain.Article;
+import com.ysh.exam.jpaBoard.user.dao.UserRepository;
+import com.ysh.exam.jpaBoard.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ public class articleController {
 
     @Autowired
     private ArticleRepository articleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("list")
     @ResponseBody
@@ -92,6 +96,10 @@ public class articleController {
         article.setBody(body);
         article.setUpdateDate(LocalDateTime.now());
         article.setRegDate(LocalDateTime.now());
+
+        //DB에서 user를 가지고 오는 방법
+        User user = userRepository.findById(1L).get();  //--> user_id는 1이 된다
+        article.setUser(user);
 
         articleRepository.save(article);
 
