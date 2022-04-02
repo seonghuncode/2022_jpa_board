@@ -105,7 +105,10 @@ public class articleController {
 
         return "%d번 게시물이 추가 되었습니다.".formatted(article.getId());
 
-
     }
+
+
+
+
 
 }
