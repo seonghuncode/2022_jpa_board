@@ -133,5 +133,27 @@ public class UserController {
     }
 
 
+    @RequestMapping("doLogout")
+    @ResponseBody
+    public String showLogOut(HttpSession session){
+
+        boolean isLogined = false;
+
+        if (session.getAttribute("loginedUserId") != null) {
+            isLogined = true;
+        }
+
+        if (isLogined == false) {
+            return "이미 로그아웃 되었습니다.";
+        }
+
+        session.removeAttribute("loginedUserId");
+
+        return "로그아웃 되었습니다.";
+    }
+
+
+
+
 
 }
