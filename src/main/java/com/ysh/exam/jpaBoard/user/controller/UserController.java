@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/usr/user")
@@ -74,16 +75,22 @@ public class UserController {
 
             password = password.trim();
 
-           User user =  userRepository.findByEmail(email).get();
+            // User user =  userRepository.findByEmail(email).orElse(null); //방법1 -> optuonal이 null이면 user에 null을 넣어라
+            //요즘 추천하는 방법
+            Optional<User> user = userRepository.findByEmail(email); // 방법2
 
-            if(user == null){
+            if(user.isEmpty()){
                 return "일치하는 회원이 없습니다";
             }
-            if(user.getPassword().equals(password) == false){
+
+            System.out.println("user.getPassword() : " + user.get().getPassword());
+            System.out.println("password : " + password);
+
+            if(user.get().getPassword().equals(password) == false){
                 return "비밀번호가 일치 하지 않습니다.";
             }
 
-            return "%s님 횐영합니다".formatted(user.getName());
+            return "%s님 횐영합니다".formatted(user.get().getName());
 
         }
 
