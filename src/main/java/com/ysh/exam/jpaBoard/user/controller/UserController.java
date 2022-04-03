@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -61,7 +64,7 @@ public class UserController {
 
         @RequestMapping("doLogin")
         @ResponseBody
-        public String showLogin(String email, String password){
+        public String showLogin(String email, String password, HttpServletRequest req, HttpServletResponse resp){
 
             if(email == null || email.trim().length() == 0){
                 return "email을 입력해 주세요";
@@ -92,6 +95,10 @@ public class UserController {
                 return "비밀번호가 일치 하지 않습니다.";
             }
 
+            Cookie cookie = new Cookie("loginedUserId", user.get().getId() + "");
+            //문자열로 바꾸기 위해 + ""을 뒤에 붙여주었다.
+            resp.addCookie(cookie);
+
             return "%s님 횐영합니다".formatted(user.get().getName());
 
         }
@@ -102,9 +109,28 @@ public class UserController {
 
     @RequestMapping("me")
     @ResponseBody
-    public User showMe(long userId){
+    public User showMe(HttpServletRequest req){
 
-        Optional<User> user = userRepository.findById(userId);
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        Cookie[] cookies = req.getCookies();
+
+        if ( cookies != null ) {
+            for ( Cookie cookie : cookies ) {
+                if ( cookie.getName().equals("loginedUserId") ) {
+                    isLogined = true;
+                    loginedUserId = Long.parseLong(cookie.getValue());
+                }
+            }
+        }
+
+        if ( isLogined == false ) {
+            return null;
+        }
+
+        Optional<User> user = userRepository.findById(loginedUserId);
+
 
         if(user.isEmpty()){
             return null;
