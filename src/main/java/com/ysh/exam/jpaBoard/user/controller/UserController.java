@@ -78,13 +78,15 @@ public class UserController {
             // User user =  userRepository.findByEmail(email).orElse(null); //방법1 -> optuonal이 null이면 user에 null을 넣어라
             //요즘 추천하는 방법
             Optional<User> user = userRepository.findByEmail(email); // 방법2
+            //optioal사용시 .get()을 무조건 사용해주어야 한다.
 
             if(user.isEmpty()){
                 return "일치하는 회원이 없습니다";
             }
 
-            System.out.println("user.getPassword() : " + user.get().getPassword());
-            System.out.println("password : " + password);
+//            System.out.println("user.getPassword() : " + user.get().getPassword());
+//            System.out.println("password : " + password);
+            //위의 두줄은 디버깅 코드로 개발자가 확인을 위해 사용하고 확인이 끝나면 지워준다.
 
             if(user.get().getPassword().equals(password) == false){
                 return "비밀번호가 일치 하지 않습니다.";
@@ -94,8 +96,22 @@ public class UserController {
 
         }
 
-
     //오류시 콘솔에서 어떤 커리가 실행되었는지 확인하고 오류를 찾는다.
+
+
+
+    @RequestMapping("me")
+    @ResponseBody
+    public User showMe(long userId){
+
+        Optional<User> user = userRepository.findById(userId);
+
+        if(user.isEmpty()){
+            return null;
+        }
+        return user.get();
+    }
+
 
 
 }
