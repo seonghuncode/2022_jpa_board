@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -110,20 +109,14 @@ public class UserController {
 
     @RequestMapping("me")
     @ResponseBody
-    public User showMe(HttpServletRequest req){
+    public User showMe(HttpSession session){
 
         boolean isLogined = false;
         long loginedUserId = 0;
 
-        Cookie[] cookies = req.getCookies();
-
-        if ( cookies != null ) {
-            for ( Cookie cookie : cookies ) {
-                if ( cookie.getName().equals("loginedUserId") ) {
-                    isLogined = true;
-                    loginedUserId = Long.parseLong(cookie.getValue());
-                }
-            }
+        if (session.getAttribute("loginedUserId") != null) {
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
         }
 
         if ( isLogined == false ) {
