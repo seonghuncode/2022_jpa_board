@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -94,10 +95,10 @@ public class UserController {
             if(user.get().getPassword().equals(password) == false){
                 return "비밀번호가 일치 하지 않습니다.";
             }
-
-            Cookie cookie = new Cookie("loginedUserId", user.get().getId() + "");
-            //문자열로 바꾸기 위해 + ""을 뒤에 붙여주었다.
-            resp.addCookie(cookie);
+            
+            //세션을 사용
+            HttpSession session = req.getSession();
+            session.setAttribute("loginedUserId", user.get().getId());
 
             return "%s님 횐영합니다".formatted(user.get().getName());
 
