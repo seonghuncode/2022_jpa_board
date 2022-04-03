@@ -20,8 +20,6 @@ public class UserController {
     @ResponseBody
     public String showJoin(String name, String email, String password){
 
-
-
         if(name == null  || name.trim().length() == 0){
             return "name을 입력해주세요";
         }
@@ -44,7 +42,6 @@ public class UserController {
             return "이미 사영중인 email이라 %s는 사용 불가능 합니다.".formatted(email);
         }
 
-
             password = password.trim();
 
             User user = new User();
@@ -61,7 +58,37 @@ public class UserController {
         }
 
 
+        @RequestMapping("doLogin")
+        @ResponseBody
+        public String showLogin(String email, String password){
 
+            if(email == null || email.trim().length() == 0){
+                return "email을 입력해 주세요";
+            }
+
+            email = email.trim();
+
+            if(password == null || password.trim().length() ==0){
+                return "password가 입력되지 않았습니다. 입력해 주세요";
+            }
+
+            password = password.trim();
+
+           User user =  userRepository.findByEmail(email).get();
+
+            if(user == null){
+                return "일치하는 회원이 없습니다";
+            }
+            if(user.getPassword().equals(password) == false){
+                return "비밀번호가 일치 하지 않습니다.";
+            }
+
+            return "%s님 횐영합니다".formatted(user.getName());
+
+        }
+
+
+    //오류시 콘솔에서 어떤 커리가 실행되었는지 확인하고 오류를 찾는다.
 
 
 }
