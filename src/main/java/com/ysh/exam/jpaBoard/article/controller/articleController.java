@@ -36,13 +36,16 @@ public class articleController {
     }
 
     @RequestMapping("detail")
-    @ResponseBody
     // EX : http://localhost:8082/usr/article/detail?id=2 => id 매개변수에 2L 이 들어옵니다.
                             //id는 integer형태로 들어오는데  L운 자바 리터럴로 long으로 버꾸어 준다?
-    public Article showDetail(long id){
+    public String showDetail(long id, Model model){
         Optional<Article> article = articleRepository.findById(id);  
         //findbyid의 경우 optional로 받기 때문에  앞에를 optional로 받아 주어야 한다
-        return article.get();
+
+        Article article2 = article.get();
+        model.addAttribute("article", article2);
+
+        return "usr/article/detail";
     }
     //jpa데이터 한개 -> 구글링 참고
 
