@@ -18,6 +18,16 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
+		<!--여기다 넣으면 다운로드 받는다. -->
+		<!--https://mvnrepository.com/ or https://start.spring.io/ 여기서 찾는다. -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>   <!-- 타임리프 사용가능-->
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>

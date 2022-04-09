@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,25 +22,11 @@ public class articleController {
     private UserRepository userRepository;
 
     @RequestMapping("list")
-    @ResponseBody
+
     public String showList() {
 
-        List<Article> articles = articleRepository.findAll();
-
-        String html = "";
-
-        html += "<ul>";
-
-        for(Article article : articles){
-            html += "<li>";
-            html += "%d번/ %s".formatted(article.getId(), article.getTitle());
-            html += "</li>";
-        }
-
-        html += "</ul>";
-
-        return html;
-
+        //@ResponseBody를 빼고 알래의 경로로 return을 시켜주게 되면 아래 경로의 html파일이 웹페이지에 보여진다.
+        return "usr/article/list"; //여기있는 템플릿을 사용해서 만들겠다
     }
 
     @RequestMapping("detail")
