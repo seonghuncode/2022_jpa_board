@@ -24,8 +24,23 @@ public class articleController {
 
     @RequestMapping("list")
     @ResponseBody
-    public List<Article> showList() {
-        return articleRepository.findAll();
+    public String showList() {
+
+        List<Article> articles = articleRepository.findAll();
+
+        String html = "";
+
+        html += "<ul>";
+
+        for(Article article : articles){
+            html += "<li>";
+            html += "%d번/ %s".formatted(article.getId(), article.getTitle());
+            html += "</li>";
+        }
+
+        html += "</ul>";
+
+        return html;
 
     }
 
