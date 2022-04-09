@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"> <!-- 타임리프 문법을 사용하기 위해 작성(빈칸을 만들어 주기 위한 문법 사용시)-->
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>게시물 목록</h1>
+<!--    &lt;!&ndash; 양식이라고 생각하고 빈칸을 만들었다고 생각 -> 추후에 빈칸의 이름을 사용하여 원하는 값을 넣어준다&ndash;&gt;-->
+<!--    <div th:text="${a}"></div> &lt;!&ndash; 타임리프에서 빈칸만드는 방법(a가 빈칸으로 만들어진다)&ndash;&gt;-->
+<!--    <h1>게시물 목록</h1>-->
 
+    <hr>
+    <div>
+        안녕!
+        <br>
+        내 나이는 <span th:text="${age}"></span>살 이고,
+        <br>
+        내 이름은 <span th:text="${name}"></span>이라고해
+    </div>
+    <hr>
+
+
+    <h1>게시물 목록</h1>
     <ul>
-        <li>내용1</li>
-        <li>내용1</li>
-        <li>내용1</li>
+        <li>내용 1</li>
+        <li>내용 2</li>
+        <li>내용 3</li>
     </ul>
+
+
 </body>
 </html>

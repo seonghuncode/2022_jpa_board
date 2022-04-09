@@ -6,6 +6,7 @@ import com.ysh.exam.jpaBoard.user.dao.UserRepository;
 import com.ysh.exam.jpaBoard.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,9 +24,12 @@ public class articleController {
 
     @RequestMapping("list")
 
-    public String showList() {
+    public String showList(Model model) {   //ui사용
 
-        //@ResponseBody를 빼고 알래의 경로로 return을 시켜주게 되면 아래 경로의 html파일이 웹페이지에 보여진다.
+        model.addAttribute("age", 25);
+        model.addAttribute("name", "유성훈");
+
+        //@ResponseBody를 지우고 아래의 경로로 return을 시켜주게 되면 아래 경로의 html파일이 웹페이지에 보여진다.
         return "usr/article/list"; //여기있는 템플릿을 사용해서 만들겠다
     }
 
