@@ -12,20 +12,16 @@
 
     <hr>
     <div>
-        안녕!
-        <br>
-        내 나이는 [[${age}]] 살 이고,
-        <br>
-        내 이름은 [[${name}]] 이라고해
+
     </div>
     <hr>
 
-
+    [[${articles}]]
     <h1>게시물 목록</h1>
     <ul>
-        <li>내용 1</li>
-        <li>내용 2</li>
-        <li>내용 3</li>
+        <li th:each="article : ${articles}">
+            [[${article.id}]] / [[${article.title}]] / [[${article.regDate}]]
+        </li>
     </ul>
 
 
