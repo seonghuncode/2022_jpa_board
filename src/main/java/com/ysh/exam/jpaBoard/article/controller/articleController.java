@@ -117,7 +117,13 @@ public class articleController {
 
         articleRepository.save(article);
 
-        return "%d번 게시물이 추가 되었습니다.".formatted(article.getId());
+        return """
+                <script>
+                alert('%d번 게시물이 작성 되었습니다.')
+                location.replace('list');
+                </script> 
+               """.formatted(article.getId());
+        //게시글 write에서 작성후 작성 완성 메세지 출력후 다시 write로 돌아간다. replace사용 이유는 처리 과정에 대한 기억을 없애 뒤로가기시 처리과정이 아닌 그 전으로 갈 수 있다.
 
     }
 
