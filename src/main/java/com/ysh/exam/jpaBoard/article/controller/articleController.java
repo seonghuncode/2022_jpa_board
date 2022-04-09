@@ -80,6 +80,14 @@ public class articleController {
         return article;
     }
 
+
+    @RequestMapping("write")
+    public String showWrite(){
+        return "usr/article/write";
+    }
+
+
+
     @RequestMapping("dowrite")
     @ResponseBody
     public String showWrite(String title, String body){
