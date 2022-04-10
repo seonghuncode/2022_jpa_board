@@ -66,7 +66,7 @@ public class articleController {
 
     @RequestMapping("doModify")
     @ResponseBody
-    public Article showModify(long id, String title, String body) {
+    public String showModify(long id, String title, String body) {
         Article article = articleRepository.findById(id).get();
 
         if (title != null) {
@@ -80,7 +80,12 @@ public class articleController {
 
 
         articleRepository.save(article);
-        return article;
+        return """
+                <script>
+                alert('%d번 게시물이 수정되었습니다.');
+                location.replace('detail?id=%d');
+                </script>
+                """.formatted(article.getId(), article.getId());
     }
 
     @RequestMapping("modify")
