@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/usr/article")
-public class articleController {
+public class ArticleController {
 
     @Autowired
     private ArticleRepository articleRepository;
@@ -50,18 +50,30 @@ public class articleController {
     //jpa데이터 한개 -> 구글링 참고
 
 
-    @RequestMapping("delete")
+    @RequestMapping("doDelete")
     @ResponseBody
     public String showDelete(long id) {
 
         if(articleRepository.existsById(id) == false){
-            return "%d번 게시물은 이미 삭제 되었거나 없는 게시물 입니다.".formatted(id);
+            return """
+                    <script>
+                    alert('%d번 게시물은 이미 삭제되었거나 존재하지 않습니다.');
+                    history.back();
+                    </script>
+                    """.formatted(id);
         }
         articleRepository.deleteById(id);
-        return "%d번 게시물이 삭제 되었습니다".formatted(id);
+        return """
+                <script>
+                alert('%d번 게시물이 삭제되었습니다.');
+                location.replace('list');
+                </script>
+                """
+                .formatted(id);
 
 
     }
+
 
 
     @RequestMapping("doModify")
@@ -111,6 +123,7 @@ public class articleController {
     @RequestMapping("dowrite")
     @ResponseBody
     public String showWrite(String title, String body){
+
 
         if(title == null || title.trim().length() == 0){
             return "제목을 입력해 주세요";

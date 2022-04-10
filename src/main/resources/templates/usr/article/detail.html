@@ -11,6 +11,8 @@
 
 <div>
     <a th:href="@{modify(id=${article.id})}">글 수정</a>
+    /
+    <a onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
 </div>
 
 <h1>게시물 본문</h1>
