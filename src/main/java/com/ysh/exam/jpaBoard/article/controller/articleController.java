@@ -83,6 +83,18 @@ public class articleController {
         return article;
     }
 
+    @RequestMapping("modify")
+    public String showModify(long id, Model model){
+
+        Optional<Article> opArticle = articleRepository.findById(id);
+        Article article = opArticle.get();
+
+        model.addAttribute("article", article);
+
+        return "usr/article/modify";
+
+    }
+
 
     @RequestMapping("write")
     public String showWrite(){
