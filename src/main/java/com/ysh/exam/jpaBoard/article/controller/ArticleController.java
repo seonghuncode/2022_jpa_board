@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +53,7 @@ public class ArticleController {
 
     @RequestMapping("doDelete")
     @ResponseBody
-    public String showDelete(long id) {
+    public String showdoDelete(long id) {
 
         if(articleRepository.existsById(id) == false){
             return """
@@ -122,8 +123,16 @@ public class ArticleController {
 
     @RequestMapping("dowrite")
     @ResponseBody
-    public String showWrite(String title, String body){
+    public String showWrite(String title, String body, HttpSession session){
 
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        //웹브라우저 에서 로그인 할때 세션을 주었기 때문에 그 로그인된 세션 값을 가지고 와서 loginedUserId여기에 저장해 준다
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
 
         if(title == null || title.trim().length() == 0){
             return "제목을 입력해 주세요";
@@ -145,7 +154,7 @@ public class ArticleController {
         article.setRegDate(LocalDateTime.now());
 
         //DB에서 user를 가지고 오는 방법
-        User user = userRepository.findById(1L).get();  //--> user_id는 1이 된다
+        User user = userRepository.findById(loginedUserId).get();  //세션에서 받은 값을 넣어 user에 저장 해준다
         article.setUser(user);
 
         articleRepository.save(article);
