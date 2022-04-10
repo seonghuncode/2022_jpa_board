@@ -134,6 +134,16 @@ public class ArticleController {
             loginedUserId = (long)session.getAttribute("loginedUserId");
         }
 
+        if(isLogined == false){
+
+            return """
+                <script>
+                alert('로그인이 필요한 기능 입니다. 로그인 후 사용해 주세요!!')
+                history.back();
+                </script> 
+               """;
+        }
+
         if(title == null || title.trim().length() == 0){
             return "제목을 입력해 주세요";
         }
