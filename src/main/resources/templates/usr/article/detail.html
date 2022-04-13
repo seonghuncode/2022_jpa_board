@@ -9,10 +9,17 @@
     <a href="write">글 쓰기</a> / <a href="list">글 리스트</a>
 </div>
 
+<!-- 태그 밖에서 자바코드의 model.addAttribute값을 html에서 쓰기 위한 방법
+[[${article.user.id }]] / [[${session.loginedUserId}]]
+-->
+
+
+<!-- 권한이 있는 사용자 에게만 글수정/ 글 삭제 버튼을 보이게 한다.-->
+<!-- th:if의 경우 조건을 만족할때만 실행 한다-->
 <div>
-    <a th:href="@{modify(id=${article.id})}">글 수정</a>
-    /
-    <a onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
+    <a th:if="${article.user.id }== ${session.loginedUserId}" th:href="@{modify(id=${article.id})}">글 수정</a>
+
+    <a th:if="${article.user.id} == ${session.loginedUserId}" onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
 </div>
 
 <h1>게시물 본문</h1>
