@@ -111,8 +111,39 @@ public class ArticleController {
 
     @RequestMapping("doModify")
     @ResponseBody
-    public String showModify(long id, String title, String body) {
+    public String showModify(long id, String title, String body, HttpSession session) {
+
+        boolean isLoginedId = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLoginedId = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if(isLoginedId == false){
+            return """
+                   <script>
+                   alert("수정을 위해서는 로그인 필요 합니다.");
+                   history.back();
+                   </script>
+                    """;
+        }
+
+
         Article article = articleRepository.findById(id).get();
+
+
+        if(article.getUser().getId() != loginedUserId){
+            return """
+                   <script>
+                   alert("접근 권한이 없습니다."); 
+                   history.back();
+                   </script>
+                    """.formatted(id);
+        }
+
+
 
         if (title != null) {
             article.setTitle(title);
