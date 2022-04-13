@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{usr/common/layout}">
+<!--이 부분은 레이아웃 파일을 성정해주기 위한 코드??  레이아웃 파일의 경로를 알려준다. -->
 <head>
-    <meta charset="UTF-8">
     <title>게시물 본문</title>
 </head>
-<body>
-<div>
-    <a href="write">글 쓰기</a> / <a href="list">글 리스트</a>
-</div>
+
+
+<main layout:fragment="main">
+    <h1>게시물 본문</h1>   <!-- 레이아웃에 넘겨줄 부분을 알려주기 위한 코드-->
+
 
 <!-- 태그 밖에서 자바코드의 model.addAttribute값을 html에서 쓰기 위한 방법
 [[${article.user.id }]] / [[${session.loginedUserId}]]
@@ -21,36 +23,38 @@
 
     <a th:if="${article.user.id} == ${session.loginedUserId}" onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
 </div>
+    <br>
 
-<h1>게시물 본문</h1>
-<div>
     <div>
-        <div>번호</div>
         <div>
-            [[${article.id}]]
+            <div>번호</div>
+            <div>
+                [[${article.id}]]
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div>작성날짜</div>
+            <div>
+                [[${article.regDate}]]
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div>제목</div>
+            <div>
+                [[${article.title}]]
+            </div>
+        </div>
+        <hr>
+        <div>
+            <div>내용</div>
+            <div>
+                [[${article.body}]]
+            </div>
         </div>
     </div>
     <hr>
-    <div>
-        <div>작성날짜</div>
-        <div>
-            [[${article.regDate}]]
-        </div>
-    </div>
-    <hr>
-    <div>
-        <div>제목</div>
-        <div>
-            [[${article.title}]]
-        </div>
-    </div>
-    <hr>
-    <div>
-        <div>내용</div>
-        <div>
-            [[${article.body}]]
-        </div>
-    </div>
-</div>
-</body>
+</main>
+
 </html>
