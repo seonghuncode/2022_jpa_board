@@ -165,10 +165,34 @@ public class ArticleController {
     }
 
     @RequestMapping("modify")
-    public String showModify(long id, Model model){
+    public String showModify(long id, Model model, HttpSession session){
+
+        //이경우 @ResposeBody를 사용하지 않았기 때문에 자바스크립트로 리턴을 하기 위해서는 modeladdAttribute로 정보를
+        // common/js로 넘겨주면서 이 주소로 return을 해주어 common/js에서 작업한 자바스립트로 응답해준다.
+
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if(isLogined == false){
+            model.addAttribute("historyBack", true);
+            model.addAttribute("msg", "수정을 위해서는 로그인이 필요합니다.");
+            return "common/js";
+        }
+
 
         Optional<Article> opArticle = articleRepository.findById(id);
         Article article = opArticle.get();
+
+        if(article.getUser().getId() != loginedUserId){
+            model.addAttribute("msg", "%d게시물을 수정할 권한이 없습니다.".formatted(id));
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
 
         model.addAttribute("article", article);
 
