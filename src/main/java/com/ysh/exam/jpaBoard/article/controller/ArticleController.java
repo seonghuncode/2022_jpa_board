@@ -53,7 +53,26 @@ public class ArticleController {
 
     @RequestMapping("doDelete")
     @ResponseBody
-    public String showdoDelete(long id) {
+    public String showdoDelete(long id, HttpSession session) {
+
+        boolean isLoginedId = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLoginedId = true;
+            loginedUserId = (long)session.getAttribute("loginedUserId");
+        }
+
+
+
+        if(isLoginedId == false){
+            return """
+                    <script>
+                    alert("로그인 후 사용해 주세요");
+                    history.back();
+                    </script>
+                    """;
+        }
 
         if(articleRepository.existsById(id) == false){
             return """
@@ -63,7 +82,20 @@ public class ArticleController {
                     </script>
                     """.formatted(id);
         }
+
+        Article article = articleRepository.findById(id).get(); //입력 받은 id값에 해당하는 article을 저장한다
+
+        if (article.getUser().getId() != loginedUserId){
+            return """
+                    <script>
+                    alert('권한이 없습니다.');
+                    history.back();
+                    </script>
+                    """;
+        }
+
         articleRepository.deleteById(id);
+
         return """
                 <script>
                 alert('%d번 게시물이 삭제되었습니다.');
