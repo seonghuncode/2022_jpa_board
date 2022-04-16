@@ -63,6 +63,7 @@ public class UserController {
         }
 
 
+
     @RequestMapping("login")
     public String showLogin(HttpSession session, Model model) {
         boolean isLogined = false;
@@ -89,13 +90,23 @@ public class UserController {
         public String showLogin(String email, String password, HttpServletRequest req, HttpServletResponse resp){
 
             if(email == null || email.trim().length() == 0){
-                return "email을 입력해 주세요";
+                return """
+                        <script>
+                        alert('이메일을 입력해 주세요!!')
+                        history.back();
+                        </script>
+                        """;
             }
 
             email = email.trim();
 
             if(password == null || password.trim().length() ==0){
-                return "password가 입력되지 않았습니다. 입력해 주세요";
+                return """
+                        <script>
+                        alert('비밀번호를 입력해 주세요.');
+                        history.back();
+                        </script>
+                        """;
             }
 
             password = password.trim();
@@ -106,7 +117,12 @@ public class UserController {
             //optioal사용시 .get()을 무조건 사용해주어야 한다.
 
             if(user.isEmpty()){
-                return "일치하는 회원이 없습니다";
+                return """
+                        <script>
+                        alert('일치 하는 회원이 없습니다. 다시 확인해 주세요.');
+                        history.back();
+                        </script>
+                        """;
             }
 
 //            System.out.println("user.getPassword() : " + user.get().getPassword());
@@ -114,14 +130,24 @@ public class UserController {
             //위의 두줄은 디버깅 코드로 개발자가 확인을 위해 사용하고 확인이 끝나면 지워준다.
 
             if(user.get().getPassword().equals(password) == false){
-                return "비밀번호가 일치 하지 않습니다.";
+                return """
+                        <script>
+                        alert('비밀번호가 일치 하지 않습니다.');
+                        history.back();
+                        </script>                      
+                        """;
             }
             
             //세션을 사용
             HttpSession session = req.getSession();
             session.setAttribute("loginedUserId", user.get().getId());
 
-            return "%s님 횐영합니다".formatted(user.get().getName());
+            return """
+                    <script>
+                    alert('%s님 환영 합니다.');
+                    history.back();
+                    </script>
+                    """.formatted(user.get().getName());
 
         }
 
