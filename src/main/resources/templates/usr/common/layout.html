@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  class="light" data-theme="light"> <!--class="light" data-theme="light" == 레이아웃 배경색상 -->
 <!--타임리프 레이아웃을 사용하기 위해 작성 해주는 코드 -->
 
 <head>
@@ -17,28 +17,26 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-          /* 다크 모드 */
-        /*
-        body {
-            background-color:#343434;
-            color:white;
-        }
-        a {
-          color: white;
-        }
-        */
-    </style>
 
+    <!-- 데이지UI에서 install -> use cnd에서 복사해서 가지고 온다 ==> 데이지ui를 사용하겠다?? -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!--link + tab -> 눈누에서 가지고온 폰트를 사용할 경로의 파일 주소를 적고 -> 만들어 준다 ==> 파일에서 설정한 폰트로 바뀐다-->
+    <link rel="stylesheet" href="/resource/common.css">
 
 </head>
 
 <body>
 
-<div >레이아웃 폼이 적용 된 페이지 입니다.</div>
+<!-- 로고를 가운데로 오게 해라 -->
+<div class="container mx-auto">
+    <div class="text-[2rem] font-bold">파도</div>
+</div>
 
-<div>
-    <ul class="flex">
+
+<div class="container mx-auto">
+    <ul class="flex  ml-[-10px]"> <!-- flex는 가로로 보이게 하는 역할 위의 파도와 줄을 맞추기 위해 왼쪽으로 움직인다-->
         <li><a href="/usr/article/write" class="block p-[10px] hover:text-[#FF0000]">글 쓰기</a></li>
         <li><a href="/usr/article/list" class="block p-[10px] hover:text-[#FF0000]">글 리스트</a></li>
         <li><a href="/usr/user/login" class="block p-[10px] hover:text-[#FF0000]">로그인</a></li>
