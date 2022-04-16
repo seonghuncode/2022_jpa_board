@@ -5,8 +5,8 @@
     <title>로그인</title>
 </head>
 
-<main layout:fragment="main">
-    <h1 class="container mx-auto">로그인</h1> <!-- 위치를 조정해 준다-->
+<main layout:fragment="main" class="mt-[20px]"> <!--margin top -->
+    <h1 class="container mx-auto" font-bold text-[1.3rem]>로그인</h1> <!-- 위치를 조정해 준다-->
 
     <form action="doLogin" method="POST" class="container mx-auto">
         <div class="form-control">
@@ -23,8 +23,8 @@
             <input name="password" type="password" placeholder="비밀번호를 입력해주세요." class="input input-bordered w-full max-w-xs" maxlength="50">
         </div>
 
-        <div>
-            <input type="submit" value="로그인">
+        <div class="mt-[20px]">
+            <input type="submit" value="로그인" class="btn btn-primary">
         </div>
     </form>
 </main>

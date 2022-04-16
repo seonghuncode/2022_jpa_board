@@ -15,11 +15,10 @@
 
     <!-- 레이 아웃 파일을 지정해 놓으면 다른 html파일에서도 자동으로 지정의 되어 위의 코드가 들어가게 된다-->
 
-    <script src="https://cdn.tailwindcss.com"></script>
+
 
 
     <!-- 데이지UI에서 install -> use cnd에서 복사해서 가지고 온다 ==> 데이지ui를 사용하겠다?? -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!--link + tab -> 눈누에서 가지고온 폰트를 사용할 경로의 파일 주소를 적고 -> 만들어 준다 ==> 파일에서 설정한 폰트로 바뀐다-->
@@ -28,11 +27,16 @@
 </head>
 
 <body>
+<!--body아래로 내린 이유는 <script src="https://cdn.tailwindcss.com"></script>이게 늦게 실행되면서 덮어쓰기 때문에 그걸 막기 위해 body아래로 옮겼다 -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.14.0/dist/full.css" rel="stylesheet" type="text/css" />
 
 <!-- 로고를 가운데로 오게 해라 -->
 <div class="container mx-auto">
-    <div class="text-[2rem] font-bold">파도</div>
-</div>
+    <div class="text-[2rem] font-bold py-[10px]">
+    <!--pt = paddin top, pb = padding bottom, py = 위아래 패딩 다 들어가는 것   -->
+        <a href="/">파도</a>
+        <!-- 파도 누르면 메인으로 가도록 하는 링크 만들기-->
+    </div>
 
 
 <div class="container mx-auto">
