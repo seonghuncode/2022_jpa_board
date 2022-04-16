@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{usr/common/layout}">
 <head>
     <meta charset="UTF-8">
     <title>게시물 작성</title>
 </head>
-<body>
-<div>
-    <a href="write" style="color:red;">글 쓰기</a> / <a href="list">글 리스트</a>
-</div>
+
+
+<main layout:fragment="main">
 
 <h1>게시물 작성</h1>
 <form action="dowrite" method="POST">
@@ -30,5 +31,6 @@
         </div>
     </div>
 </form>
-</body>
+</main>
+
 </html>

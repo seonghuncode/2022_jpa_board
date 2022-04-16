@@ -4,10 +4,19 @@
 <!--이 부분은 레이아웃 파일을 성정해주기 위한 코드??  레이아웃 파일의 경로를 알려준다. -->
 <head>
     <title>게시물 본문</title>
+    <!-- 여기서 title은  레이아웃에 미리 만들어 놓은 타이틀 틀에 사용할 타이틀을 이름을 정해주는 작업이다. -->
 </head>
 
-
+<!-- body는 없어도 되는 이유는 이 부분은 레이아웃의 부분으로 이동하여 사용하기 때문에 거기에 있는 바디안으로 들어가게 된다-->
 <main layout:fragment="main">
+    <!-- 권한이 있는 사용자 에게만 글수정/ 글 삭제 버튼을 보이게 한다.-->
+    <!-- th:if의 경우 조건을 만족할때만 실행 한다-->
+    <div>
+        <a th:if="${article.user.id }== ${session.loginedUserId}" th:href="@{modify(id=${article.id})}">글 수정</a>
+
+        <a th:if="${article.user.id} == ${session.loginedUserId}" onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
+    </div>
+
     <h1>게시물 본문</h1>   <!-- 레이아웃에 넘겨줄 부분을 알려주기 위한 코드-->
 
 
@@ -16,13 +25,7 @@
 -->
 
 
-<!-- 권한이 있는 사용자 에게만 글수정/ 글 삭제 버튼을 보이게 한다.-->
-<!-- th:if의 경우 조건을 만족할때만 실행 한다-->
-<div>
-    <a th:if="${article.user.id }== ${session.loginedUserId}" th:href="@{modify(id=${article.id})}">글 수정</a>
 
-    <a th:if="${article.user.id} == ${session.loginedUserId}" onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
-</div>
     <br>
 
     <div>

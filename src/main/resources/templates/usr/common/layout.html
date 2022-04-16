@@ -10,19 +10,37 @@
     <!-- 헤드의 부분은 다른 페이지와 보통 거의 동일하다 -->
 
     <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">JPA Community</title>
-            <!--JPA Cmoounity --> LAYOUT_TITLE이 된다 미리 레이아웃 파일에  정의를 해두었다고 생각
+            <!--JPA Cmoounity ==> LAYOUT_TITLE이 된다 미리 레이아웃 파일에  정의를 해두었다고 생각
             CONTENT_TITLE의 경우 다른 페이지의 HEAD태그안에 title태그 안에 정의한 내용이 된다 -->
 
     <!-- 레이 아웃 파일을 지정해 놓으면 다른 html파일에서도 자동으로 지정의 되어 위의 코드가 들어가게 된다-->
+
+
+    <style>
+          /* 다크 모드 */
+        /*
+        body {
+            background-color:#343434;
+            color:white;
+        }
+        a {
+          color: white;
+        }
+        */
+    </style>
+
+
 </head>
 
 <body>
+
+<div >레이아웃 폼이 적용 된 페이지 입니다.</div>
 
 <div>
     <a href="write">글 쓰기</a> / <a href="list">글 리스트</a>
     <!--이 부분은 레이아웃으로 지정된 파일들에서 무조선 나오고 아래에 받은 데이터들이 출력 된다 -->
 </div>
-<br>
+
 <main layout:fragment="main">
 <!-- deteail에서는 데이터를 제공만 하고 선택권이 없고 모든 권한은 레이아웃이 잡게 된다 detail에서 메인 자리에 들어갈 내용을 지정한 부분이 모두 여기로 들어오게 된다-->
 </main>
