@@ -22,9 +22,7 @@
             <span class="badge badge-outline">작성일 : [[${#strings.substring(article.regDate, 2, 10)}]]</span>
             <span class="badge badge-outline">작성자 : [[${article.user.name}]]</span>
         </div>
-        <div class="mt-[10px] whitespace-pre-line">
-            [[${article.body}]]
-        </div>
+        <div class="mt-[10px] whitespace-pre-line">[[${#strings.trim(article.body)}]]</div>
     </div>
 
     <div class="container mt-[10px] mx-auto px-[10px]">
