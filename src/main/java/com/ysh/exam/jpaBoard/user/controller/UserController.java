@@ -230,7 +230,7 @@ public class UserController {
 
 
     @RequestMapping("doLogout")
-    @ResponseBody
+
     public String showLogOut(HttpSession session){
 
         boolean isLogined = false;
@@ -240,17 +240,12 @@ public class UserController {
         }
 
         if (isLogined == false) {
-            return "이미 로그아웃 되었습니다.";
+            return "redirect:/";
         }
 
         session.removeAttribute("loginedUserId");
 
-        return """
-                <script>
-                alert('로그아웃 되었습니다.');
-                history.back();
-                </script>
-                """;
+        return "redirect:/";
     }
 
     @RequestMapping("modify")
