@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{usr/common/layout}">
+<head>
+    <title>회원가입</title>
+</head>
+
+<main layout:fragment="main" class="mt-[20px]"> <!--margin top -->
+    <h1 class="container mx-auto" font-bold text-[1.3rem]>회원가입</h1> <!-- 위치를 조정해 준다-->
+
+    <form action="dojoin" method="POST" class="container mx-auto">
+
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">이름</span>
+            </label>
+            <input type="text" name="name" placeholder="이름을 입력해 주세요" class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">이메일</span>
+            </label>
+            <input type="email" name="email" placeholder="이메일을 입력해 주세요" class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">비밀번호</span>
+            </label>
+            <input type="password" name="password" placeholder="이메일을 입력해 주세요" class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div class="mt-[20px]">
+            <input type="submit" value="회원가입" class="btn btn-primary">
+        </div>
+
+    </form>
+</main>
+</html>

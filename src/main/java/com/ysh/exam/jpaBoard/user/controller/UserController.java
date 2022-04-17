@@ -21,30 +21,73 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+
+    @RequestMapping("join")
+    public String showJoin(HttpSession session, Model model){
+
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if(isLogined){
+            model.addAttribute("msg", "이미 로그인이 되어 있습니다. 로그아웃후 이용해 주세요");
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
+
+
+        return "usr/user/join";
+    }
+
+
     @RequestMapping("dojoin")
     @ResponseBody
     public String showJoin(String name, String email, String password){
 
         if(name == null  || name.trim().length() == 0){
-            return "name을 입력해주세요";
+            return """
+                    <script>
+                    alert('이름을 입력해 주세요!!');
+                    history.back();
+                    </script>
+                    """;
         }
 
         name = name.trim();
 
         if(email == null || email.trim().length() == 0){
-            return "email을 입력 해주세요";
+            return """
+                    <script>
+                    alert('이메일을 입력해 주세요!!');
+                    history.back();
+                    </script>
+                    """;
         }
 
         email = email.trim();
 
         if(password == null || password.trim().length() == 0){
-            return "password를 입력해 주세요";
+            return """
+                    <script>
+                    alert('비밀번호를 입력해 주세요!!');
+                    history.back();
+                    </script>
+                    """;
         }
 
         boolean existsByEmail = userRepository.existsByEmail(email);
 
         if(existsByEmail){
-            return "이미 사영중인 email이라 %s는 사용 불가능 합니다.".formatted(email);
+            return """
+                    <script>
+                    alert('%s는 이미 사용중인 이메일 이므로 사용 불가능 합니다.');
+                    history.back();
+                    </script>
+                    """.formatted(email);
         }
 
             password = password.trim();
@@ -59,7 +102,12 @@ public class UserController {
 
             userRepository.save(user);
 
-            return "%d번 회원이 생성 되었습니다.".formatted(user.getId());
+            return """
+                    <script>
+                    alert('%s 회원이 생성되었습니다. 축하합니다!!');
+                    history.back();
+                    </script>
+                    """.formatted(user.getName());
         }
 
 
@@ -197,9 +245,32 @@ public class UserController {
 
         session.removeAttribute("loginedUserId");
 
-        return "로그아웃 되었습니다.";
+        return """
+                <script>
+                alert('로그아웃 되었습니다.');
+                history.back();
+                </script>
+                """;
     }
 
+    @RequestMapping("modify")
+    public String showModify(HttpSession session, Model model){
+
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+        if(isLogined == false){
+            model.addAttribute("msg", "로그인 후 사용 가능 합니다. 로그인을 해주세요!!");
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
+
+        return "usr/user/modify";
+    }
 
 
 
