@@ -8,27 +8,32 @@
 </head>
 
 
-<main layout:fragment="main">
+<main layout:fragment="main" class="mt-[20px]">
+    <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">글 작성</h1>
 
-<h1>게시물 작성</h1>
-<form action="dowrite" method="POST">
-    <div>
-        <div>제목</div>
-        <div>
-            <input type="text" name="title" placeholder="제목을 입력해주세요.">
+    <form action="dowrite" method="POST" class="container mx-auto px-[10px]">
+
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">제목</span>
+            </label>
+            <input required name="title" type="text" placeholder="제목을 입력해주세요."
+                   class="input input-bordered w-full max-w-xl" maxlength="100">
+         </div>
+
+        <div class="form-control">
+            <label class="label">
+                <span class="label-text">내용</span>
+            </label>
+            <textarea rows="10" class="textarea textarea-bordered w-full max-w-xl" required name="body"
+                      placeholder="내용을 입력해주세요."></textarea>
+            <div>
+
+        <div class="mt-[20px]">
+            <input type="submit" value="작성" class="btn btn-primary btn-sm">
+            <button class="btn btn-sm" onclick="history.back();">취소</button>
         </div>
-    </div>
-    <div>
-        <div>내용</div>
-        <div>
-            <textarea name="body" placeholder="내용을 입력해주세요."></textarea>
-        </div>
-    </div>
-    <div>
-        <div>
-            <input type="submit" value="작성">
-        </div>
-    </div>
+
 </form>
 </main>
 

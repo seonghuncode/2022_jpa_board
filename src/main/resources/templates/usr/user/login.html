@@ -13,18 +13,19 @@
             <label class="label">
                 <span class="label-text">이메일</span>
             </label>
-            <input name="email" type="email" placeholder="이메일을 입력해 주세요" class="input input-bordered w-full max-w-xs" mxlength="50">
+            <input required name="email" type="email" placeholder="이메일을 입력해주세요." class="input input-bordered w-full max-w-xs" maxlength="50">
             <!-- 데이지UI에서 -> text input -> with form control and labels -> html코드를 필요한 만큼 복사하여 필요에 맞게 고쳐 사용하기(아래의 경우도 같음)-->
         </div>
         <div class="form-control">
             <label class="label">
                 <span class="label-text">비밀번호</span>
             </label>
-            <input name="password" type="password" placeholder="비밀번호를 입력해주세요." class="input input-bordered w-full max-w-xs" maxlength="50">
+            <input required name="password" type="password" placeholder="비밀번호를 입력해주세요." class="input input-bordered w-full max-w-xs" maxlength="50">
         </div>
 
         <div class="mt-[20px]">
-            <input type="submit" value="로그인" class="btn btn-primary">
+            <input type="submit" value="로그인" class="btn btn-primary btn-sm">
+            <button class="btn btn-sm" onclick="history.back();">취소</button>
         </div>
     </form>
 </main>
