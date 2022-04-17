@@ -7,15 +7,28 @@
 </head>
 
 
-<main layout:fragment="main">
-<h1>게시물 목록</h1>
-    <ul>
-        <li th:each="article : ${articles}">
-            <a th:href="@{detail(id=${article.id})}">
-                [[${article.id}]] / [[${article.title}]] / [[${article.regDate}]]
-            </a>
-        </li>
-    </ul>
+<main layout:fragment="main" class="mt-[20px]">
+    <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">최신글</h1>
+    <div class="container mx-auto px-[10px] grid md:grid-cols-2 xl:grid-cols-3 gap-[10px]">
+        <div th:each="article : ${articles}">
+            <div class="card bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        <span class="badge">[[${article.id}]]</span>
+                        [[${article.title}]]
+                    </h2>
+                    <div>
+                        <span class="badge badge-outline">작성일 : [[${#strings.substring(article.regDate, 2, 10)}]]</span>
+                        <span class="badge badge-outline">작성자 : [[${article.user.name}]]</span>
+                    </div>
+                    <p>[[${article.body}]]</p>
+                    <div class="card-actions justify-end">
+                        <a th:href="@{detail(id=${article.id})}" class="btn btn-primary btn-sm">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 </html>
