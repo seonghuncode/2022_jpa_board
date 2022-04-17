@@ -8,56 +8,36 @@
 </head>
 
 <!-- body는 없어도 되는 이유는 이 부분은 레이아웃의 부분으로 이동하여 사용하기 때문에 거기에 있는 바디안으로 들어가게 된다-->
-<main layout:fragment="main">
+<main layout:fragment="main" class="mt-[20px]">
+    <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">[[${article.title}]]</h1>
     <!-- 권한이 있는 사용자 에게만 글수정/ 글 삭제 버튼을 보이게 한다.-->
     <!-- th:if의 경우 조건을 만족할때만 실행 한다-->
-    <div>
-        <a th:if="${article.user.id }== ${session.loginedUserId}" th:href="@{modify(id=${article.id})}">글 수정</a>
-
-        <a th:if="${article.user.id} == ${session.loginedUserId}" onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글 삭제</a>
-    </div>
-
-    <h1>게시물 본문</h1>   <!-- 레이아웃에 넘겨줄 부분을 알려주기 위한 코드-->
 
 
-<!-- 태그 밖에서 자바코드의 model.addAttribute값을 html에서 쓰기 위한 방법
-[[${article.user.id }]] / [[${session.loginedUserId}]]
--->
-
-
-
-    <br>
-
-    <div>
+    <div class="container mx-auto px-[10px] mt-[10px]">
         <div>
-            <div>번호</div>
-            <div>
-                [[${article.id}]]
-            </div>
+            <span class="badge">번호 : [[${article.id}]]</span>
         </div>
-        <hr>
-        <div>
-            <div>작성날짜</div>
-            <div>
-                [[${article.regDate}]]
-            </div>
+        <div class="mt-[10px]">
+            <span class="badge badge-outline">작성일 : [[${#strings.substring(article.regDate, 2, 10)}]]</span>
+            <span class="badge badge-outline">작성자 : [[${article.user.name}]]</span>
         </div>
-        <hr>
-        <div>
-            <div>제목</div>
-            <div>
-                [[${article.title}]]
-            </div>
-        </div>
-        <hr>
-        <div>
-            <div>내용</div>
-            <div>
-                [[${article.body}]]
-            </div>
+        <div class="mt-[10px] whitespace-pre-line">
+            [[${article.body}]]
         </div>
     </div>
-    <hr>
+
+    <div class="container mt-[10px] mx-auto px-[10px]">
+        <a class="btn btn-sm btn-primary" href="/usr/article/list">목록</a>
+        <button class="btn btn-sm" onclick="history.back();">뒤로가기</button>
+        <a class="btn btn-sm" th:if="${article.user.id == session.loginedUserId}" th:href="@{modify(id=${article.id})}">글
+            수정</a>
+        <a class="btn btn-sm" th:if="${article.user.id == session.loginedUserId}"
+           onclick="if ( confirm('정말로 삭제하겠습니까?') == false ) return false;" th:href="@{doDelete(id=${article.id})}">글
+            삭제</a>
+    </div>
+
+
 </main>
 
 </html>
