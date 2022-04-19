@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{usr/common/layout}">
+<head>
+    <title>회원 정보 수정</title>
+</head>
+
+<main layout:fragment="main" class="mt-[20px]"> <!--margin top -->
+    <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">회원 정보 수정</h1> <!-- 위치를 조정해 준다-->
+
+    <form action="doModifyUser" method="POST" class="container mx-auto px-[10px]">
+
+        <input type="text" name="id" th:value="${loginedUserId}">
+
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+                <span class="label-text">이메일</span>
+            </label>
+            <input type="email"  name="email" placeholder="수정할 이메일을 입력해 주세요." class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+                <span class="label-text">비밀번호</span>
+            </label>
+            <input type="password"  name="password" placeholder="수정할 비밀번호를 입력해 주세요." class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div class="form-control w-full max-w-xs">
+            <label class="label">
+                <span class="label-text">이름</span>
+            </label>
+            <input type="text"  name="name" placeholder="수정할 이름을 입력해 주세요." class="input input-bordered w-full max-w-xs">
+        </div>
+
+        <div>
+            <input class="btn btn-primary btn-ms" value="수정" type="submit" />
+        </div>
+
+
+    </form>
+</main>
+</html>

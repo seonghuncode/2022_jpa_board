@@ -22,6 +22,118 @@ public class UserController {
     private UserRepository userRepository;
 
 
+    @RequestMapping("modifyUser")
+    public String showModifyUser( HttpSession session, Model model){
+
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if(isLogined == false){
+            model.addAttribute("msg", "로그인이 필요한 기능입니다. 로그인을 먼저 해주세요!!");
+            model.addAttribute("historyBack", true);
+           return "common/js";
+        }
+
+
+
+        User user = userRepository.findById(loginedUserId).get();
+
+        model.addAttribute("loginedUserId", loginedUserId);
+        //세션 아이디 정보를 념겨주어 현재 로그인 유저의 정보를 그 아이디값으로 찾아내어 유저의 정보를 수정한다.
+        //로그인된 회원은 회원 정보 수정을 클릭하면 본인의 정보를 가지고와 본인의 정보만 수정 가능하다.
+
+        if(loginedUserId != user.getId()){
+            model.addAttribute("msg", "본인 정보가 아니므로 권한이 없습니다!!");
+            model.addAttribute("historyBack", true);
+            return "common/js";
+        }
+
+
+        return "usr/user/modifyUser";
+
+
+    }
+
+
+
+    @RequestMapping("doModifyUser")
+    @ResponseBody
+    public String showModifyUser(long id, String email, String password, String name, HttpSession session, Model model){
+
+        boolean isLogined = false;
+        long loginedUserId = 0;
+
+        if(session.getAttribute("loginedUserId") != null){
+            isLogined = true;
+            loginedUserId = (long) session.getAttribute("loginedUserId");
+        }
+
+        if(isLogined == false){
+            return """
+                  <script>
+                  alert('회원 정보 수정을 위해 로그인이 필요합니다.');
+                  history.back();
+                  </script>
+                  """;
+        }
+
+        User user = userRepository.findById(id).get();
+
+        if(loginedUserId != user.getId()){
+          return """
+                  <script>
+                  alert('본인 회원 정보가 아니므로 수정 권한이 없습니다.');
+                  history.back();
+                  </script>
+                  """;
+        }
+
+        
+        if(email == null  || email.trim().length() == 0){
+            return """
+                  <script>
+                  alert('수정할 이메일을 입력해 주세요.');
+                  history.back();
+                  </script>
+                  """;
+        }
+        if(password == null  || password.trim().length() == 0){
+            return """
+                  <script>
+                  alert('수정할 비밀번호를 입력해 주세요.');
+                  history.back();
+                  </script>
+                  """;
+        }
+        
+        
+        if(email != null){
+            user.setEmail(email);
+        }
+        if(password != null){
+            user.setPassword(password);
+        }
+        if(name != null){
+            user.setName(namedf);
+        }
+
+        userRepository.save(user);
+
+
+        return """
+                <script>
+                alert('%s 회원 정보 수정이 완료 되었습니다.');
+                history.back();
+                </script>
+                """.formatted(user.getName());
+    }
+
+
     @RequestMapping("join")
     public String showJoin(HttpSession session, Model model){
 
@@ -127,6 +239,7 @@ public class UserController {
             model.addAttribute("historyBack", true);
             return "common/js";
         }
+
 
         return "usr/user/login";
     }

@@ -61,6 +61,10 @@
             <a href="/usr/user/doLogout"
                class="block p-[10px] hover:text-[#FF0000]">로그아웃</a>
         </li>
+        <li th:if="${session.loginedUserId > 0}">
+            <a href="/usr/user/modifyUser"
+               class="block p-[10px] hover:text-[#FF0000]">회원 정보 수정</a>
+        </li>
     </ul>
 </div>
 
