@@ -119,7 +119,7 @@ public class UserController {
             user.setPassword(password);
         }
         if(name != null){
-            user.setName(namedf);
+            user.setName(name);
         }
 
         userRepository.save(user);

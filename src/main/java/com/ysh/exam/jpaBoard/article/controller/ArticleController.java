@@ -36,6 +36,18 @@ public class ArticleController {
         return "usr/article/list"; //여기있는 템플릿을 사용해서 만들겠다
     }
 
+    @RequestMapping("doReverseList")
+
+    public String showDoReverseList(Model model){
+
+        List<Article> articles = articleRepository.findAll();
+
+        model.addAttribute("articles", articles);
+
+        return "usr/article/reverseList";
+    }
+
+
     @RequestMapping("detail")
     // EX : http://localhost:8082/usr/article/detail?id=2 => id 매개변수에 2L 이 들어옵니다.
                             //id는 integer형태로 들어오는데  L운 자바 리터럴로 long으로 버꾸어 준다?
