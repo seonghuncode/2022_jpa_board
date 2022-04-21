@@ -51,6 +51,32 @@ public class ArticleController {
         return "usr/article/list"; //여기있는 템플릿을 사용해서 만들겠다
     }
 
+
+
+    @RequestMapping("doSearch")
+    public String showDoSearch( String keyword, Model model){
+
+
+       boolean existTitle = articleRepository.existsByTitle(keyword);
+        if(existTitle == false){
+            model.addAttribute("msg", "존재하지 않는 제목입니다.");
+            model.addAttribute("replaceUri", "list");
+            return "common/js";
+        }
+
+        if(existTitle == true){
+            Optional<Article> article2 = articleRepository.findByTitle(keyword);
+            Article article = article2.get();
+
+            model.addAttribute("article", article);
+        }
+
+        return "usr/article/detail";
+    }
+
+
+
+
     @RequestMapping("doReverseList")
 
     public String showDoReverseList(Model model){

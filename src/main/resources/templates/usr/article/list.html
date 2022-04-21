@@ -15,6 +15,16 @@
 
     <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">최신글</h1>
 
+    <!-- 검색 기능 구현 하기 -->
+    <div class="ml-[1100px] py-[10px]">
+    <form action="doSearch" method="post">
+        <h3 class="ml-[90px]">검색어 기능</h3>
+        <input type="text" name="keyword" placeholder="검색어를 입력해 주세요."  class="ml-[90px] mt-[10px] input input-bordered input-warning w-full max-w-xs">
+        <input type="submit" value="검색" class="btn-primary btn-md">
+    </form>
+    </div>
+    <!-- -->
+
     <div class="container mx-auto px-[10px] grid md:grid-cols-2 xl:grid-cols-3 gap-[10px]">
 
         <div th:each="article : ${paging}">
