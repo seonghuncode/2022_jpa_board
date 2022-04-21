@@ -5,9 +5,13 @@ import com.ysh.exam.jpaBoard.article.domain.Article;
 import com.ysh.exam.jpaBoard.user.dao.UserRepository;
 import com.ysh.exam.jpaBoard.user.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -24,11 +28,22 @@ public class ArticleController {
     @Autowired
     private UserRepository userRepository;
 
+
+
+    //https://docs.spring.io/spring-data/jpa/docs/current/reference/html/ (도큐멘트 참고하기)
+    //@PageableDefault(size = 5)  --> 한페이지에 보여줄 게시긓 갯수를 정할수 있다.
     @RequestMapping("list")
 
-    public String showList(Model model) {   //ui사용
+    //스프링 부트의 페이징 기능은 첫 번째 페이지가 1이 아니라 0이다
+    public String showList(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {   //ui사용
+    //추가적으로 page를 받아주고 전달이 안됬을때 0을 받게 한다
 
         List<Article> articles = articleRepository.findAll();
+
+        Pageable pageable = PageRequest.of(page, 5);
+        Page<Article> paging = articleRepository.findAll(pageable);
+
+        model.addAttribute("paging", paging);
 
         model.addAttribute("articles", articles);
 

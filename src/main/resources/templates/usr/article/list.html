@@ -2,16 +2,25 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
       layout:decorate="~{usr/common/layout}">
 <!--이 부분은 레이아웃 파일을 성정해주기 위한 코드??  레이아웃 파일의 경로를 알려준다. -->
+
+
 <head>
     <title>게시물 본문</title>
 </head>
 
 
+
 <main layout:fragment="main" class="mt-[20px]">
+
+
     <h1 class="container mx-auto font-bold text-[1.3rem] px-[10px]">최신글</h1>
+
     <div class="container mx-auto px-[10px] grid md:grid-cols-2 xl:grid-cols-3 gap-[10px]">
-        <div th:each="article : ${articles}">
+
+        <div th:each="article : ${paging}">
+
             <div class="card bg-base-100 shadow-xl">
+
                 <div class="card-body">
                     <h2 class="card-title">
                         <span class="badge">[[${article.id}]]</span>
@@ -22,13 +31,48 @@
                         <span class="badge badge-outline">작성자 : [[${article.user.name}]]</span>
                     </div>
                     <p>[[${article.body}]]</p>
+
                     <div class="card-actions justify-end">
                         <a th:href="@{detail(id=${article.id})}" class="btn btn-primary btn-sm">자세히 보기</a>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}">
+
+        <br>
+
+        <ul class=" flex pagination place-content-center ">
+            <li class="page-item" th:if="${paging.hasPrevious}">
+                <a class="page-link btn btn-primary btn-sm "
+                   th:href="@{|?page=${paging.number-1}|}">
+                    <span>이전</span>
+                </a>
+            </li>
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+                th:if="${page >= paging.number-3 and page <= paging.number+3}"
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link btn btn-primary btn-sm" th:href="@{|?page=${page}|}"></a>
+            </li>
+            <li class="page-item" th:if="${paging.hasNext}">
+                <a class="page-link btn btn-primary btn-sm" th:href="@{|?page=${paging.number+1}|}">
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+
+<!--    th:classappend="${!paging.hasNext} ? 'disabled'"> &ndash;&gt; 이코드가 동작하지 않아 thLif문법으로 조건 미달시 버튼을 아예보이지 않도록 했다-->
+
+
+
 </main>
 
 </html>
